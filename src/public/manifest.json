@@ -1,0 +1,35 @@
+{
+  "manifest_version": 2,
+  "version": "0.1.0",
+  "author": "Briana Labs",
+  "name": "브리아나 - 1초만에 코인 모니터링",
+  "description": "핸드폰으로 보지말고, 브라우저에서 단축키로 1초만에 코인 시세를 실시간으로 모니터링하자!",
+  "homepage_url": "https://www.brianalabs.com",
+  "icons": {
+    "16": "icon16.png",
+    "32": "icon32.png",
+    "128": "icon128.png"
+  },
+  "permissions": ["storage", "notifications"],
+  "browser_action": {
+    "default_title": "Briana",
+    "default_popup": "index.html"
+  },
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": true
+  },
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+  "content_security_policy": "script-src 'self' chrome-extension://ockgdpplkgghgipjkcfjaejbljfccklb https://www.google-analytics.com https://www.googletagmanager.com https://www.google.com 'unsafe-eval'; object-src 'self';",
+  "commands": {
+    "_execute_browser_action": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+E",
+        "mac": "Command+Shift+E"
+      }
+    }
+  }
+}
