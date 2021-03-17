@@ -1,12 +1,17 @@
 const path = require('path')
+const webpack = require('webpack')
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require("copy-webpack-plugin");
 const { VueLoaderPlugin } = require('vue-loader')
 
 module.exports = {
   mode: process.env.NODE_ENV,
-  entry: './src/main.js',
+  stats: {
+    errorDetails: true
+  },
+  entry: ['./src/main.js'],
   output: {
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, 'dist'),
   },
   module: {
     rules: [
@@ -14,28 +19,28 @@ module.exports = {
         test: /\.vue$/,
         loader: 'vue-loader'
       },
-      // {
-      //   test: /\.ts$/,
-      //   loader: 'ts-loader',
-      //   options: {
-      //     appendTsSuffixTo: [/\.vue$/]
-      //   }
-      // },
       {
         test: /\.css$/,
-        // include: path.resolve(__dirname, 'src'),
         use: ['style-loader', 'css-loader', 'postcss-loader'],
       },
     ],
   },
   plugins: [
-    new CopyPlugin({
-      patterns: [{ from: path.resolve(__dirname, 'src/public'), to: path.resolve(__dirname, 'dist') }]
+    new webpack.ProgressPlugin(),
+    new VueLoaderPlugin(),
+    new HtmlWebpackPlugin({
+      template: path.resolve(__dirname, 'src/public/index.html')
     }),
-    new VueLoaderPlugin()
+    new CopyPlugin({
+      patterns: [
+        {
+          from: 'src/public/*.{json,png}',
+          to: () => path.resolve(__dirname, 'dist/[name][ext]')
+        }]
+    }),
   ],
   devServer: {
     contentBase: path.resolve(__dirname, 'dist'),
     watchContentBase: true
-  },
+  }
 }

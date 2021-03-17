@@ -1,11 +1,23 @@
+const defaultTheme = require('tailwindcss/defaultTheme')
+const colors = require('tailwindcss/colors')
+
 module.exports = {
-  purge: ['./**/*.html', './**/*.vue'],
-  darkMode: false,
+  important: true,
+  darkMode: 'media',
+  purge: ["./src/**/*.html", "./src/**/*.vue"],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        gray: colors.trueGray
+      },
+      fontSize: {
+        '2xs': '0.625rem',
+      },
+      fontFamily: {
+        sans: ['-apple-system', ...defaultTheme.fontFamily.sans],
+      }
+    },
   },
-  variants: {
-  extend: {},
-  },
+  variants: {},
   plugins: [],
 };
